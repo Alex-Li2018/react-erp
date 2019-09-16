@@ -1,0 +1,10 @@
+{
+    "code": 200,
+    "data": {
+        "nickname": "alex",
+        "avatar": "",
+        "gender": "gender",
+        "bgurl": "bg",
+        "phoneNum": "99999999"
+    }
+}

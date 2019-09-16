@@ -1,0 +1,10 @@
+{
+    "presets": ["@babel/preset-env","@babel/preset-react"],
+    "plugins": [
+        // "@babel/preset-react", //安装解析react的语法
+        ["@babel/plugin-proposal-decorators",{"legacy": true}], //装饰器的插件
+        ["@babel/plugin-proposal-class-properties", { "loose": true }], //支持class语法
+        "@babel/plugin-transform-runtime", //支持promise的语法 Generator语法
+        "@babel/plugin-syntax-dynamic-import" //支持import()函数
+    ],
+}
