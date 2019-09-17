@@ -24,7 +24,7 @@ react + react-router-dom + webpack + ES6/7 + axios + sass + flex + svg
 │   ├── until                                   // 公共的方法与组件
 │   │   └── asyncImportComponent.jsx            // 路由懒加载的组件
 │   ├── App.js                                  // 页面入口文件
-│   ├── main.js                                 // 程序入口文件，加载各种公共组件
+│   └── main.js                                 // 程序入口文件，加载各种公共组件
 .
 
 56 directories, 203 files

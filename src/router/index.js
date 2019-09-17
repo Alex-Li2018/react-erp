@@ -1,12 +1,10 @@
 //路由部分
 import React, { Component } from 'react'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-//引入异步加载组件
-import asyncImportComponent from "@until/asyncImportComponent"
-//异步组件
-const App = asyncImportComponent(() => import(/* webpackChunkName: "App" */"../app"));  
-const Login = asyncImportComponent(() => import(/* webpackChunkName: "Login" */"../pages/login"));  
-
+//引入路由配置
+import routerConfig from "./router.config"
+//引入导航守卫的高阶组件
+import RouterBeforeEach from "./routerBeforeEach"
 
 export default class RouteConfig extends Component {
     constructor(props) {
@@ -18,8 +16,8 @@ export default class RouteConfig extends Component {
             <div>
                 <Router>
                     <Switch>
-                        <Route exact path="/login" component={Login} />
-                        <Route path="/" component={App} />
+                        {/* 导航守卫的处理 */}
+                        <RouterBeforeEach config={ routerConfig } />
                     </Switch>
                 </Router>
             </div>

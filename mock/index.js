@@ -19,8 +19,8 @@ module.exports = function(app){
 
     //登录
     app.post('/users/signup', function (req, res) {
-        let { password } = req.body
-        if(password == "123456") {
+        let { username, password } = req.body
+        if(username == 'alex' && password == "123456") {
             var json = util.getJsonFile('./data/signup.json');
             res.json(Mock.mock(json));
         }else {

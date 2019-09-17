@@ -2,39 +2,35 @@ import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 //获取路由信息,使用withRouter对组件进行包裹
 import { withRouter } from 'react-router-dom';
-//其他路由组件
-import asyncImportComponent from "@until/asyncImportComponent"
-const Home = asyncImportComponent(() => import(/* webpackChunkName: "Home" */"./pages/home")) 
+//路由组件
+import RouteConfig from "./router/index" 
 
 //装饰器模式
-@withRouter
+// @withRouter
 class App extends Component {
     constructor(props) {
         console.log("constructor")
         super(props)
     }
 
-    componentWillMount() {
-        console.log("componentWillMount")
+    // componentWillMount() {
+    //     console.log("componentWillMount")
+    // }
+
+    componentDidMount() {console.log(this.props)
+        console.log("componentDidMount",this.refs.RouteConfig)
     }
 
-    componentDidMount() {
-        console.log("componentDidMount")
-    }
-
-    render() {console.log(this.props)
+    render() {
+        // const { pathname } = this.props.location
+        // console.log(pathname)
         return (
             <div>
-                <header>头部</header>
+                {/* {pathname !== '/login' && <header>头部</header>} */}
                 <div className="content">
-                    {/* 模拟默认路由 */}
-                    <Redirect path="/" to={{pathname: '/home'}} />
-                    <Route exact path="/home" component={Home} />
-                    {/* <Route path="inbox" component={Inbox}>
-                        <Route path="messages/:id" component={Message} />
-                    </Route> */}
+                    <RouteConfig ref="RouteConfig" />
                 </div>
-                <footer>底部</footer>
+                {/* <footer>底部</footer> */}
             </div>
         )
     }
