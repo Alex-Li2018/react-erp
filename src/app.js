@@ -4,12 +4,15 @@ import { Route, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router-dom';
 //路由组件
 import RouteConfig from "./router/index" 
+//store
+// import Store from "./redux"
+// import { Provider } from 'react-redux'
 
 //装饰器模式
 // @withRouter
 class App extends Component {
     constructor(props) {
-        console.log("constructor")
+        // console.log("constructor")
         super(props)
     }
 
@@ -17,8 +20,8 @@ class App extends Component {
     //     console.log("componentWillMount")
     // }
 
-    componentDidMount() {console.log(this.props)
-        console.log("componentDidMount",this.refs.RouteConfig)
+    componentDidMount() {
+        // console.log("componentDidMount",this.refs.RouteConfig)
     }
 
     render() {
@@ -28,7 +31,9 @@ class App extends Component {
             <div>
                 {/* {pathname !== '/login' && <header>头部</header>} */}
                 <div className="content">
-                    <RouteConfig ref="RouteConfig" />
+                    {/* <Provider Store={Store}> */}
+                        <RouteConfig ref="RouteConfig" />
+                    {/* </Provider> */}
                 </div>
                 {/* <footer>底部</footer> */}
             </div>

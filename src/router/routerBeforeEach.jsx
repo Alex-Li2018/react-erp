@@ -1,14 +1,27 @@
 //路由前置守卫高阶组件
 import React, { Component } from 'react'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
+//引入store
+import Store from "../redux"
 
 export default class RouterBeforeEach extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            location: "/"
+            location: "/",
+            loginFlag: Store.getState().loginFlag
         }
+        //监听state的变化
+        Store.subscribe(this.listenLoginFlag)
+       
     }
+
+    //监听store的变化
+    listenLoginFlag = () => { console.log(Store.getState().loginFlag)
+        this.setState({
+            loginFlag: Store.getState().loginFlag
+        })
+    }   
 
     componentDidMount() {
         //存放当前的路由信息
@@ -20,8 +33,9 @@ export default class RouterBeforeEach extends Component {
     render() { 
         const { location,config } = this.props;
         const { pathname } = location;
-        const isLogin = localStorage.getItem('login_token')
-        // debugger
+        //登录的标记
+        const isLogin = this.state.loginFlag
+
         // 如果该路由不用进行权限校验，登录状态下登陆页除外
         // 因为登陆后，无法跳转到登陆页
         // 这部分代码，是为了在非登陆状态下，访问不需要权限校验的路由
@@ -53,5 +67,11 @@ export default class RouterBeforeEach extends Component {
                 return <Redirect to='/404' />
             }
         }
+    }
+
+    //组件销毁
+    componentWillUnmount() {
+        //销毁监听
+        Store.unsubscribe(this.listenLoginFlag)
     }
 }

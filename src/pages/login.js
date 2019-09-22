@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+//store
+import Store from "../redux"
+import { loginFLagAction, userInfoAction } from "../redux/action"
+//局部样式
 import styles from "@style/login.scss"
 //服务api
 import { loginAPI } from "@API/api.js"
@@ -23,7 +27,12 @@ class Login extends Component {
               loginAPI(params).then(res => {
                 if(res.code == 200) {
                   //作为登录之后的标记
-                  localStorage.setItem('login_token', res.data)
+                  // localStorage.setItem('login_token', res.data)
+                  // console.log(loginFLagAction(true))
+                  //存放是否登录的标记
+                  Store.dispatch(loginFLagAction(true))
+                  //存放用户信息
+                  Store.dispatch(userInfoAction(res.data))
                   //路由跳转
                   this.props.history.push({
                     pathname: '/home'
