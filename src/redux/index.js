@@ -7,7 +7,7 @@ import reducer from './reducer' // 引入reducer
 const Store = createStore(
   reducer,
   // 使浏览器中redux-devtool插件生效
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : undefined 
 ) 
 
 // 创建数据存储仓库

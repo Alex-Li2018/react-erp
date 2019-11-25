@@ -1,0 +1,80 @@
+Question: 
+实现一个组件：
+显示一个数字，数字从1到100之间改变，从1开始，每秒钟加1，当数字增加到100之后，每秒钟减1，减少到数字变为1时，每秒钟+1，如此循环
+1 2 3 4 .... 98 99 100 99 98 ... 3 2 1 2 3 ... 99 100 99 98 ... 1 ...
+
+export default class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("MyComponent constructed");
+    this.state = { 
+			data: 1,
+      flag: 0
+		};
+  }
+
+	componentDidMount() {
+        setInterval(() => {
+						if(this.state.data <= 100 && !this.state.flag) {
+              	
+                this.setState((oldState) => {
+                  data = oldState++
+                  if(oldState == 100) {
+											this.state.flag = 1
+									}
+              	})
+						}else {
+								this.setState({
+                  data: data--
+              	})
+						}
+				},1000)
+  }
+  render() {
+    return (
+      <div>
+  			<p>{this.state.data}</p>
+      </div>
+    );
+  }
+}
+
+
+Question:
+
+实现一个函数validate，验证输入参数是否合法。
+要求： 1. validate函数可以接受一个函数作为参数，这样用户可以传入验证规则，比如
+      validate(input => typeof input === 'string');
+      validate(input => input.length > 0);
+      
+      2. 如果输入不是一个函数，那么validate函数会使用之前传入的所有规则对当前输入进行验证，如果验证通过返回true，否则返回false
+      validate("Hooray!"); // return true because it's a non-empty string
+      validate(null); // returns false
+      validate(); // returns false
+
+			3. validate函数支持多个参数同时传入
+      validate("Hooray!", "Hoorah!"); // returns true
+      validate("Yippee", null, ""); // returns false
+
+			let map = []
+			function validate() {
+					let args = arguments
+          [...arguments]
+          
+          //校验参数
+          if(Object.prototype.toString.calll(args) == '[object Function]') {
+							//生成校验规则						
+							map.push({ rule: args })
+					}else if(Object.prototype.toString.calll(args) == '[object String]') {
+						  //实现校验规则
+            	let res = [] 
+						  map.forEach(_ => {
+								res.push(_.rule(args)) 
+							})
+            
+            	//返回检验通过规则
+            	return res.some(val => (!val))
+					}else {
+						return false
+					}
+			}

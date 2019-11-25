@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import RouteConfig from "./router/index" 
 //store
 // import Store from "./redux"
-// import { Provider } from 'react-redux'
+// import { Provider, connect } from 'react-redux'
 
 //装饰器模式
 // @withRouter
@@ -21,21 +21,19 @@ class App extends Component {
     // }
 
     componentDidMount() {
-        // console.log("componentDidMount",this.refs.RouteConfig)
+        console.log("componentDidMount",this.refs.RouteConfig)
+        setInterval
     }
 
     render() {
-        // const { pathname } = this.props.location
-        // console.log(pathname)
         return (
             <div>
-                {/* {pathname !== '/login' && <header>头部</header>} */}
+                {/* 内容区 */}
                 <div className="content">
-                    {/* <Provider Store={Store}> */}
+                    {/* <Provider store={Store}> */}
                         <RouteConfig ref="RouteConfig" />
                     {/* </Provider> */}
                 </div>
-                {/* <footer>底部</footer> */}
             </div>
         )
     }

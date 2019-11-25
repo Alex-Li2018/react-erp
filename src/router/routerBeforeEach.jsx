@@ -3,25 +3,34 @@ import React, { Component } from 'react'
 import {HashRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 //引入store
 import Store from "../redux"
+//引入context媒介
+import UserContext from "../context"
 
 export default class RouterBeforeEach extends Component {
     constructor(props) {
         super(props)
         this.state = {
             location: "/",
-            loginFlag: Store.getState().loginFlag
+            loginFlag: Store.getState().loginFlag,
+            userInfo: Store.getState().userInfo
         }
         //监听state的变化
         Store.subscribe(this.listenLoginFlag)
-       
+        Store.subscribe(this.listenUserInfo)
     }
 
     //监听store的变化
-    listenLoginFlag = () => { console.log(Store.getState().loginFlag)
+    listenLoginFlag = () => {
         this.setState({
             loginFlag: Store.getState().loginFlag
         })
-    }   
+    }  
+    
+    listenUserInfo = () => {
+        this.setState({
+            userInfo: Store.getState().userInfo
+        })
+    }
 
     componentDidMount() {
         //存放当前的路由信息
@@ -52,7 +61,11 @@ export default class RouterBeforeEach extends Component {
             }else{
                 // 如果路由合法，就跳转到相应的路由
                 if(targetRouterConfig){
-                    return <Route path={pathname} component={targetRouterConfig.component} />
+                    return (
+                        <UserContext.Provider value={this.state.userInfo}>
+                            <Route path={pathname} component={targetRouterConfig.component} />
+                        </UserContext.Provider>
+                    )
                 }else{
                     // 如果路由不合法，重定向到 404 页面
                     return <Redirect to='/404' />
@@ -73,5 +86,6 @@ export default class RouterBeforeEach extends Component {
     componentWillUnmount() {
         //销毁监听
         Store.unsubscribe(this.listenLoginFlag)
+        Store.unsubscribe(this.listenUserInfo)
     }
 }
